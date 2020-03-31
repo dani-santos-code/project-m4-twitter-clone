@@ -3,6 +3,7 @@ import React from "react";
 export default function Logo() {
   return (
     <svg
+      className="logo"
       height="40"
       width="40"
       fill="hsl(258deg, 100%, 50%)"
