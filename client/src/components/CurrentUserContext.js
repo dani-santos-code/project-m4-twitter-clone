@@ -5,7 +5,7 @@ export const CurrentUserContext = React.createContext(null);
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState("Loading");
-  const [feed, setFeed] = React.useState(null);
+  const [feed, setFeed] = React.useState();
   const [feedStatus, setFeedStatus] = React.useState("Loading");
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const CurrentUserProvider = ({ children }) => {
     fetch("/api/me/home-feed")
       .then(res => res.json())
       .then(data => {
-        setFeed(Object.values(data.tweetsById));
+        setFeed(data);
         setFeedStatus("ok");
       });
   }, []);

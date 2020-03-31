@@ -5,7 +5,7 @@ import Sidebar from "../Sidebar";
 import HomeFeed from "../HomeFeed";
 import Notification from "../Notifications";
 import Bookmark from "../Bookmarks";
-import TweetDetail from "../TweetDetails";
+import TweetDetail from "../Tweet";
 import Profile from "../Profile";
 
 const Wrapper = styled.div`
