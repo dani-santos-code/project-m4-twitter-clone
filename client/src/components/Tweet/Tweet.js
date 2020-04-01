@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
-
+import { Icon } from "react-icons-kit";
+import { repeat } from "react-icons-kit/feather/repeat";
 import { CurrentUserContext } from "../CurrentUserContext";
+import TweetActions from "./TweetActions";
 
 const TweetWrapper = styled.div`
   margin-top: 20px;
@@ -24,6 +26,7 @@ const Avatar = styled.img`
   border-radius: 50%;
   width: 50px;
   height: 50px;
+  margin-top: 40px;
 `;
 const TweetAuthor = styled.p`
   font-weight: bold;
@@ -58,8 +61,25 @@ const TweetMediaImage = styled.img`
   border-radius: 10px;
 `;
 
-const ActionsWrapper = styled.div``;
+const RetweetWrapper = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+  color: grey;
+`;
+const StyledIcon = styled(Icon)`
+  padding-right: 5px;
+`;
 
+const ActionsWrapper = styled.div`
+  margin: 10px 0;
+  width: 300px;
+`;
+
+const Divider = styled.div`
+  border-top: 1.5px solid #e5e5e5;
+  width: 420px;
+  margin-bottom: 10px;
+`;
 export default function Tweet() {
   const { feed, feedStatus } = React.useContext(CurrentUserContext);
 
@@ -74,7 +94,13 @@ export default function Tweet() {
               </div>
               <div>
                 <TweetUserInfo>
-                  {console.log(feed)}
+                  {feed.tweetsById[tweet].retweetFrom && (
+                    <RetweetWrapper>
+                      <StyledIcon icon={repeat} />
+                      <p>{feed.tweetsById[tweet].retweetFrom.displayName}</p>
+                    </RetweetWrapper>
+                  )}
+                  {/* {console.log(feed)} */}
                   {feed.tweetsById[tweet].author && (
                     <TweetListItem key={`${i}-${tweet}`}>
                       <TweetAuthor>
@@ -100,8 +126,11 @@ export default function Tweet() {
                       src={`${feed.tweetsById[tweet].media[0].url}`}
                     ></TweetMediaImage>
                   )}
-                  <ActionsWrapper></ActionsWrapper>
+                  <ActionsWrapper>
+                    <TweetActions />
+                  </ActionsWrapper>
                 </TweetUserContent>
+                <Divider />
               </div>
             </>
           );

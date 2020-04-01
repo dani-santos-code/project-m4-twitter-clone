@@ -70,4 +70,8 @@ export default createGlobalStyle`
     color: #69ffcf;
     text-decoration: none;
   }
+
+  h1 {
+    margin-left: 60px;
+  }
 `;
