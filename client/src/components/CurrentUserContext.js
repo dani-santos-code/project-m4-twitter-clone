@@ -4,7 +4,7 @@ export const CurrentUserContext = React.createContext(null);
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
-  const [status, setStatus] = React.useState("Loading");
+  const [userStatus, setUserStatus] = React.useState("Loading");
   const [feed, setFeed] = React.useState();
   const [feedStatus, setFeedStatus] = React.useState("Loading");
 
@@ -13,7 +13,7 @@ export const CurrentUserProvider = ({ children }) => {
       .then(res => res.json())
       .then(data => {
         setCurrentUser(data.profile);
-        setStatus("ok");
+        setUserStatus("ok");
       });
   }, []);
 
@@ -27,7 +27,7 @@ export const CurrentUserProvider = ({ children }) => {
   }, []);
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, status, feed, feedStatus }}
+      value={{ currentUser, userStatus, feed, feedStatus }}
     >
       {children}
     </CurrentUserContext.Provider>

@@ -2,14 +2,14 @@ import React from "react";
 import { CurrentUserContext } from "../CurrentUserContext";
 
 export default function Profile() {
-  const { currentUser, status } = React.useContext(CurrentUserContext);
+  const { currentUser, userStatus } = React.useContext(CurrentUserContext);
 
   return (
     <div>
-      {status === "ok" ? (
+      {userStatus === "ok" ? (
         <h1>Welcome, {currentUser.displayName}</h1>
       ) : (
-        <h1>{status}</h1>
+        <h1>{userStatus}</h1>
       )}
     </div>
   );
