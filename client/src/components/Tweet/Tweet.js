@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
 import { Icon } from "react-icons-kit";
@@ -6,15 +6,25 @@ import { repeat } from "react-icons-kit/feather/repeat";
 import { CurrentUserContext } from "../CurrentUserContext";
 import TweetActions from "./TweetActions";
 
-const TweetBoxWrapper = styled.div`
-  border: 1px solid grey;
+const TweetBoxWrapper = styled.form`
+  margin-top: 40px;
+  border-bottom: 10px solid #00000017;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+`;
+
+const TweetBoxHeader = styled.div`
   display: flex;
 `;
 const TweetBoxInput = styled.input`
   width: 300px;
   height: 50px;
-  background-color: lightgrey;
   margin-left: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
 `;
 
 const UserAvatar = styled.img`
@@ -23,6 +33,18 @@ const UserAvatar = styled.img`
   height: 50px;
 `;
 
+const MeowCTA = styled.input`
+  background: hsl(258deg, 100%, 50%);
+  color: white;
+  width: 100px;
+  border-radius: 35px;
+  height: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  align-self: flex-end;
+`;
 const TweetFeedWrapper = styled.div`
   margin-top: 20px;
   display: grid;
@@ -101,25 +123,44 @@ export default function Tweet() {
   const { currentUser, userStatus, feed, feedStatus } = React.useContext(
     CurrentUserContext
   );
+  const [inputText, setInputText] = useState("");
+
   const inputEl = useRef(null);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    const status = inputText;
+    // TODO
+    // Make post request to API
+    // Consult the API to see what requirements exist for posting
+  };
+  const handleChange = event => {
+    setInputText(event.target.value);
+  };
   useEffect(() => {
-    if (userStatus === "ok") {
+    if (userStatus === "ok" && feedStatus === "ok") {
       inputEl.current.focus();
     }
   }, [userStatus]);
 
   return (
     <>
-      {userStatus === "ok" && (
-        <TweetBoxWrapper>
+      {userStatus === "ok" && feedStatus === "ok" && (
+        <TweetBoxWrapper onSubmit={handleSubmit}>
           {/* {console.log(currentUser)} */}
-          <UserAvatar src={currentUser.avatarSrc} />
-          <TweetBoxInput ref={inputEl}></TweetBoxInput>
+          <TweetBoxHeader>
+            <UserAvatar src={currentUser.avatarSrc} />
+            <TweetBoxInput
+              ref={inputEl}
+              placeholder={"What's happening?"}
+              onChange={handleChange}
+            ></TweetBoxInput>
+          </TweetBoxHeader>
+          <MeowCTA type="submit" value={"MEOW"}></MeowCTA>
         </TweetBoxWrapper>
       )}
       <TweetFeedWrapper>
-        {feedStatus === "ok" ? (
+        {userStatus === "ok" && feedStatus === "ok" ? (
           feed.tweetIds.map((tweet, i) => {
             return (
               <>

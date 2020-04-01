@@ -19,7 +19,6 @@ const App = () => {
   return (
     <Wrapper>
       <GlobalStyles />
-
       <Router>
         <Sidebar></Sidebar>
         <Switch>
