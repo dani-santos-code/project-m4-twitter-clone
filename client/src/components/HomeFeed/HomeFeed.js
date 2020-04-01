@@ -1,12 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { CurrentUserContext } from "../CurrentUserContext";
 import Tweet from "../Tweet";
+
+const HomeWrapper = styled.div`
+  padding-left: 30px;
+  border-left: 1.5px solid white;
+  &:hover {
+    border-left: 1.5px solid #f0f0f5;
+  }
+`;
 export default function HomeFeed() {
   return (
-    <div>
+    <HomeWrapper>
       <h1>Home</h1>
       <Tweet />
-    </div>
+    </HomeWrapper>
   );
 }

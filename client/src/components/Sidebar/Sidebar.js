@@ -10,12 +10,6 @@ import { COLORS } from "../../constants";
 
 import Logo from "../App/Logo";
 
-const NavBarWrapper = styled.div`
-  border-right: 1.5px solid white;
-  &:hover {
-    border-right: 1.5px solid #f0f0f5;
-  }
-`;
 const NavBar = styled.nav`
   line-height: 30px;
   margin: 30px 30%;
@@ -57,34 +51,32 @@ const StyledIcon = styled(Icon)`
 `;
 export default function Sidebar() {
   return (
-    <NavBarWrapper>
-      <NavBar>
-        <Logo></Logo>
-        <MenuItem>
-          <StyledLink to="/" activeClassName="selected" exact>
-            <StyledIcon icon={home} />
-            <span>Home</span>
-          </StyledLink>
-        </MenuItem>
-        <MenuItem>
-          <StyledLink to="/notifications" activeClassName="selected" exact>
-            <StyledIcon icon={bell} />
-            Notifications
-          </StyledLink>
-        </MenuItem>
-        <MenuItem>
-          <StyledLink to="/bookmarks" activeClassName="selected" exact>
-            <StyledIcon icon={bookmark} />
-            Bookmarks
-          </StyledLink>
-        </MenuItem>
-        <MenuItem>
-          <StyledLink to="/abc" activeClassName="selected" exact>
-            <StyledIcon icon={user} />
-            Profile
-          </StyledLink>
-        </MenuItem>
-      </NavBar>
-    </NavBarWrapper>
+    <NavBar>
+      <Logo></Logo>
+      <MenuItem>
+        <StyledLink to="/" activeClassName="selected" exact>
+          <StyledIcon icon={home} />
+          <span>Home</span>
+        </StyledLink>
+      </MenuItem>
+      <MenuItem>
+        <StyledLink to="/notifications" activeClassName="selected" exact>
+          <StyledIcon icon={bell} />
+          Notifications
+        </StyledLink>
+      </MenuItem>
+      <MenuItem>
+        <StyledLink to="/bookmarks" activeClassName="selected" exact>
+          <StyledIcon icon={bookmark} />
+          Bookmarks
+        </StyledLink>
+      </MenuItem>
+      <MenuItem>
+        <StyledLink to="/abc" activeClassName="selected" exact>
+          <StyledIcon icon={user} />
+          Profile
+        </StyledLink>
+      </MenuItem>
+    </NavBar>
   );
 }
