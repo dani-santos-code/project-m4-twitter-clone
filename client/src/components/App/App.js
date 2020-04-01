@@ -7,15 +7,19 @@ import Notification from "../Notifications";
 import Bookmark from "../Bookmarks";
 import TweetDetail from "../Tweet";
 import Profile from "../Profile";
+import GlobalStyles from "../GlobalStyles";
 
 const Wrapper = styled.div`
   display: grid;
+  grid-gap: 40px;
   grid-template-columns: 1fr 2fr;
 `;
 
 const App = () => {
   return (
     <Wrapper>
+      <GlobalStyles />
+
       <Router>
         <Sidebar></Sidebar>
         <Switch>
