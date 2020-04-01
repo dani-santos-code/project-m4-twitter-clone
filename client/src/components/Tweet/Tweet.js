@@ -2,13 +2,21 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "../CurrentUserContext";
 
-const TweetWrapper = styled.div``;
+const TweetWrapper = styled.div`
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 60px 2fr;
+`;
 
 const TweetUserInfo = styled.ul`
   list-style: none;
 `;
 
-const TweetListItem = styled.li``;
+const TweetListItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+`;
 
 const Avatar = styled.img`
   border-radius: 50%;
@@ -17,20 +25,23 @@ const Avatar = styled.img`
 `;
 const TweetAuthor = styled.p`
   font-weight: bold;
+  margin-left: 5px;
+`;
+
+const TweetHandle = styled.p`
+  color: grey;
+  margin-left: 5px;
 `;
 
 const Status = styled.p`
-  /* position: absolute; */
+  margin: 10px 0;
 `;
 
-const TweetUserContent = styled.div`
-  /* position: relative; */
-`;
+const TweetUserContent = styled.div``;
 
 const TweetMediaImage = styled.img`
-  /* position: absolute; */
-  width: 500px;
-  height: 350px;
+  width: 400px;
+  height: 250px;
   border-radius: 20px;
 `;
 
@@ -43,27 +54,32 @@ export default function Tweet() {
         feed.tweetIds.map((tweet, i) => {
           return (
             <>
-              <TweetUserInfo>
-                {console.log(feed)}
-                {feed.tweetsById[tweet].author && (
-                  <TweetListItem key={`${i}-${tweet}`}>
-                    <Avatar
-                      src={`${feed.tweetsById[tweet].author.avatarSrc}`}
-                    />
-                    <TweetAuthor>
-                      {feed.tweetsById[tweet].author.displayName}
-                    </TweetAuthor>
-                  </TweetListItem>
-                )}
-              </TweetUserInfo>
-              <TweetUserContent>
-                <Status> {feed.tweetsById[tweet].status}</Status>
-                {feed.tweetsById[tweet].media.length && (
-                  <TweetMediaImage
-                    src={`${feed.tweetsById[tweet].media[0].url}`}
-                  ></TweetMediaImage>
-                )}
-              </TweetUserContent>
+              <div>
+                <Avatar src={`${feed.tweetsById[tweet].author.avatarSrc}`} />
+              </div>
+              <div>
+                <TweetUserInfo>
+                  {console.log(feed)}
+                  {feed.tweetsById[tweet].author && (
+                    <TweetListItem key={`${i}-${tweet}`}>
+                      <TweetAuthor>
+                        {feed.tweetsById[tweet].author.displayName}
+                      </TweetAuthor>
+                      <TweetHandle>
+                        @{feed.tweetsById[tweet].author.handle}
+                      </TweetHandle>
+                    </TweetListItem>
+                  )}
+                </TweetUserInfo>
+                <TweetUserContent>
+                  <Status> {feed.tweetsById[tweet].status}</Status>
+                  {feed.tweetsById[tweet].media.length && (
+                    <TweetMediaImage
+                      src={`${feed.tweetsById[tweet].media[0].url}`}
+                    ></TweetMediaImage>
+                  )}
+                </TweetUserContent>
+              </div>
             </>
           );
         })
