@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
 import { Icon } from "react-icons-kit";
@@ -18,12 +19,14 @@ const TweetBoxWrapper = styled.form`
 const TweetBoxHeader = styled.div`
   display: flex;
 `;
-const TweetBoxInput = styled.input`
+const TweetBoxInput = styled.textarea`
   width: 300px;
   height: 50px;
+  overflow: hidden;
   margin-left: 10px;
+  resize: none;
   border: none;
-  /* outline: none; */
+  outline: none;
   font-size: 16px;
 `;
 
@@ -90,8 +93,9 @@ const TimeStamp = styled.p`
 const Status = styled.p`
   margin: 10px 0;
   width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
-
 const TweetUserContent = styled.div``;
 
 const TweetMediaImage = styled.img`
@@ -119,6 +123,11 @@ const Divider = styled.div`
   width: 420px;
   margin-bottom: 10px;
 `;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 export default function Tweet() {
   const {
     currentUser,
@@ -127,6 +136,7 @@ export default function Tweet() {
     feedStatus,
     setFeedStatus
   } = React.useContext(CurrentUserContext);
+
   const [inputText, setInputText] = useState("");
 
   const inputEl = useRef(null);
@@ -149,6 +159,7 @@ export default function Tweet() {
   const handleChange = event => {
     setInputText(event.target.value);
   };
+
   useEffect(() => {
     if (userStatus === "ok" && feedStatus === "ok") {
       inputEl.current.focus();
@@ -206,22 +217,24 @@ export default function Tweet() {
                       </TweetListItem>
                     )}
                   </TweetUserInfo>
-                  <TweetUserContent>
-                    {/* {console.log(feed.tweetsById[tweet])} */}
-                    {feed.tweetsById[tweet].status && (
-                      <Status> {feed.tweetsById[tweet].status}</Status>
-                    )}
-                    {feed.tweetsById[tweet].media.length ? (
-                      <TweetMediaImage
-                        src={`${feed.tweetsById[tweet].media[0].url}`}
-                      ></TweetMediaImage>
-                    ) : (
-                      ""
-                    )}
-                    <ActionsWrapper>
-                      <TweetActions />
-                    </ActionsWrapper>
-                  </TweetUserContent>
+                  <StyledLink to={`/tweet/${feed.tweetsById[tweet].id}`}>
+                    <TweetUserContent>
+                      {/* {console.log(feed.tweetsById[tweet])} */}
+                      {feed.tweetsById[tweet].status && (
+                        <Status> {feed.tweetsById[tweet].status}</Status>
+                      )}
+                      {feed.tweetsById[tweet].media.length ? (
+                        <TweetMediaImage
+                          src={`${feed.tweetsById[tweet].media[0].url}`}
+                        ></TweetMediaImage>
+                      ) : (
+                        ""
+                      )}
+                      <ActionsWrapper>
+                        <TweetActions />
+                      </ActionsWrapper>
+                    </TweetUserContent>
+                  </StyledLink>
                   <Divider />
                 </div>
               </React.Fragment>
