@@ -120,9 +120,13 @@ const Divider = styled.div`
   margin-bottom: 10px;
 `;
 export default function Tweet() {
-  const { currentUser, userStatus, feed, feedStatus } = React.useContext(
-    CurrentUserContext
-  );
+  const {
+    currentUser,
+    userStatus,
+    feed,
+    feedStatus,
+    setFeedStatus
+  } = React.useContext(CurrentUserContext);
   const [inputText, setInputText] = useState("");
 
   const inputEl = useRef(null);
@@ -136,8 +140,8 @@ export default function Tweet() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         if (res) {
+          setFeedStatus("Loading");
           console.log(res);
         }
       });

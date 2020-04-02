@@ -24,10 +24,10 @@ export const CurrentUserProvider = ({ children }) => {
         setFeed(data);
         setFeedStatus("ok");
       });
-  }, []);
+  }, [feedStatus]);
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, userStatus, feed, feedStatus }}
+      value={{ currentUser, userStatus, feed, feedStatus, setFeedStatus }}
     >
       {children}
     </CurrentUserContext.Provider>
