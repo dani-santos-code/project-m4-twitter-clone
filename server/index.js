@@ -1,10 +1,13 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const PORT = 31415;
 
 var app = express();
 
 app.use(express.json());
+app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(require('./routes/profile'));
 app.use(require('./routes/tweet'));
 app.use(require('./routes/feed'));

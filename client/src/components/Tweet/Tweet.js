@@ -23,7 +23,7 @@ const TweetBoxInput = styled.input`
   height: 50px;
   margin-left: 10px;
   border: none;
-  outline: none;
+  /* outline: none; */
   font-size: 16px;
 `;
 
@@ -129,10 +129,18 @@ export default function Tweet() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const status = inputText;
-    // TODO
-    // Make post request to API
-    // Consult the API to see what requirements exist for posting
+    fetch("/api/tweet", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: inputText })
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        if (res) {
+          console.log(res);
+        }
+      });
   };
   const handleChange = event => {
     setInputText(event.target.value);
@@ -141,7 +149,7 @@ export default function Tweet() {
     if (userStatus === "ok" && feedStatus === "ok") {
       inputEl.current.focus();
     }
-  }, [userStatus]);
+  }, [userStatus, feedStatus]);
 
   return (
     <>
@@ -163,7 +171,7 @@ export default function Tweet() {
         {userStatus === "ok" && feedStatus === "ok" ? (
           feed.tweetIds.map((tweet, i) => {
             return (
-              <>
+              <React.Fragment key={`${i}-${tweet}`}>
                 <div>
                   <Avatar src={`${feed.tweetsById[tweet].author.avatarSrc}`} />
                 </div>
@@ -195,11 +203,16 @@ export default function Tweet() {
                     )}
                   </TweetUserInfo>
                   <TweetUserContent>
-                    <Status> {feed.tweetsById[tweet].status}</Status>
-                    {feed.tweetsById[tweet].media.length && (
+                    {/* {console.log(feed.tweetsById[tweet])} */}
+                    {feed.tweetsById[tweet].status && (
+                      <Status> {feed.tweetsById[tweet].status}</Status>
+                    )}
+                    {feed.tweetsById[tweet].media.length ? (
                       <TweetMediaImage
                         src={`${feed.tweetsById[tweet].media[0].url}`}
                       ></TweetMediaImage>
+                    ) : (
+                      ""
                     )}
                     <ActionsWrapper>
                       <TweetActions />
@@ -207,7 +220,7 @@ export default function Tweet() {
                   </TweetUserContent>
                   <Divider />
                 </div>
-              </>
+              </React.Fragment>
             );
           })
         ) : (
