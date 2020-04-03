@@ -152,18 +152,22 @@ export default function Tweet() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    fetch("/api/tweet", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: inputText })
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res) {
-          setFeedStatus("Loading");
-          //   console.log(res);
-        }
-      });
+    if (inputText.length <= 280) {
+      fetch("/api/tweet", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: inputText })
+      })
+        .then(res => res.json())
+        .then(res => {
+          if (res) {
+            setFeedStatus("Loading");
+            //   console.log(res);
+          }
+        });
+    } else {
+      setFeedStatus("Loading");
+    }
   };
 
   const handleChange = event => {
