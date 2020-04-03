@@ -12,7 +12,7 @@ const TweetActionsWrapper = styled.div`
 `;
 const IconWrapper = styled.button`
   border: none;
-  outline: none;
+  /* outline: none; */
   cursor: pointer;
   margin-right: 60px;
 `;

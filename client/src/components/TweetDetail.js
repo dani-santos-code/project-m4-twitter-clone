@@ -53,7 +53,7 @@ const TweetMediaImage = styled.img`
 `;
 
 const ActionsWrapper = styled.div`
-  margin-left: 79px;
+  margin-left: 60px;
 `;
 export default function TweetDetail() {
   const { tweetId } = useParams();
@@ -84,9 +84,13 @@ export default function TweetDetail() {
           </TweetUserInfo>
           <TweetUserContent>
             <Status>{tweetData.tweet.status}</Status>
-            <TweetMediaImage
-              src={`${tweetData.tweet.media[0].url}`}
-            ></TweetMediaImage>
+            {tweetData.tweet.media.length ? (
+              <TweetMediaImage
+                src={`${tweetData.tweet.media[0].url}`}
+              ></TweetMediaImage>
+            ) : (
+              ""
+            )}
           </TweetUserContent>
           <ActionsWrapper>
             <TweetActions />

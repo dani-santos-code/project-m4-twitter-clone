@@ -22,7 +22,9 @@ const TweetBoxHeader = styled.div`
 const TweetBoxInput = styled.textarea`
   width: 300px;
   height: 50px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-color: grey;
   margin-left: 10px;
   resize: none;
   border: none;
@@ -128,6 +130,10 @@ const StyledLink = styled(Link)`
   color: inherit;
 `;
 
+const CharacterCount = styled.p`
+  color: ${props => props.charColor};
+`;
+
 export default function Tweet() {
   const {
     currentUser,
@@ -138,6 +144,9 @@ export default function Tweet() {
   } = React.useContext(CurrentUserContext);
 
   const [inputText, setInputText] = useState("");
+
+  const [charCount, setCharCount] = useState({ current: 0, maxChar: 280 });
+  //   const [charColor, setCharColor] = useState("black");
 
   const inputEl = useRef(null);
 
@@ -152,14 +161,20 @@ export default function Tweet() {
       .then(res => {
         if (res) {
           setFeedStatus("Loading");
-          console.log(res);
+          //   console.log(res);
         }
       });
   };
+
   const handleChange = event => {
     setInputText(event.target.value);
+    setCharCount({
+      ...charCount,
+      current: event.target.value.length
+    });
   };
 
+  //   console.log(charCount.maxChar - charCount.current);
   useEffect(() => {
     if (userStatus === "ok" && feedStatus === "ok") {
       inputEl.current.focus();
@@ -179,6 +194,21 @@ export default function Tweet() {
               onChange={handleChange}
             ></TweetBoxInput>
           </TweetBoxHeader>
+          {charCount.maxChar - charCount.current <= 55 &&
+          charCount.maxChar - charCount.current >= 0 ? (
+            <CharacterCount charColor={"#f0e130"}>
+              {charCount.maxChar - charCount.current}
+            </CharacterCount>
+          ) : charCount.maxChar - charCount.current < 0 ? (
+            <CharacterCount charColor={"red"}>
+              {charCount.maxChar - charCount.current}
+            </CharacterCount>
+          ) : (
+            <CharacterCount charColor={"black"}>
+              {charCount.maxChar - charCount.current}
+            </CharacterCount>
+          )}
+
           <MeowCTA type="submit" value={"MEOW"}></MeowCTA>
         </TweetBoxWrapper>
       )}
@@ -191,33 +221,38 @@ export default function Tweet() {
                   <Avatar src={`${feed.tweetsById[tweet].author.avatarSrc}`} />
                 </div>
                 <div>
-                  <TweetUserInfo>
-                    {feed.tweetsById[tweet].retweetFrom && (
-                      <RetweetWrapper>
-                        <StyledIcon icon={repeat} />
-                        <p>{feed.tweetsById[tweet].retweetFrom.displayName}</p>
-                      </RetweetWrapper>
-                    )}
-                    {/* {console.log(feed)} */}
-                    {feed.tweetsById[tweet].author && (
-                      <TweetListItem key={`${i}-${tweet}`}>
-                        <TweetAuthor>
-                          {feed.tweetsById[tweet].author.displayName}
-                        </TweetAuthor>
-                        <TweetHandle>
-                          @{feed.tweetsById[tweet].author.handle}
-                        </TweetHandle>
-                        <BulletDivider></BulletDivider>
-                        <TimeStamp>
-                          {format(
-                            new Date(feed.tweetsById[tweet].timestamp),
-                            "MMM do"
-                          )}
-                        </TimeStamp>
-                      </TweetListItem>
-                    )}
-                  </TweetUserInfo>
-                  <StyledLink to={`/tweet/${feed.tweetsById[tweet].id}`}>
+                  <StyledLink
+                    tabIndex={-1}
+                    to={`/tweet/${feed.tweetsById[tweet].id}`}
+                  >
+                    <TweetUserInfo>
+                      {feed.tweetsById[tweet].retweetFrom && (
+                        <RetweetWrapper>
+                          <StyledIcon icon={repeat} />
+                          <p>
+                            {feed.tweetsById[tweet].retweetFrom.displayName}
+                          </p>
+                        </RetweetWrapper>
+                      )}
+                      {/* {console.log(feed)} */}
+                      {feed.tweetsById[tweet].author && (
+                        <TweetListItem key={`${i}-${tweet}`}>
+                          <TweetAuthor>
+                            {feed.tweetsById[tweet].author.displayName}
+                          </TweetAuthor>
+                          <TweetHandle>
+                            @{feed.tweetsById[tweet].author.handle}
+                          </TweetHandle>
+                          <BulletDivider></BulletDivider>
+                          <TimeStamp>
+                            {format(
+                              new Date(feed.tweetsById[tweet].timestamp),
+                              "MMM do"
+                            )}
+                          </TimeStamp>
+                        </TweetListItem>
+                      )}
+                    </TweetUserInfo>
                     <TweetUserContent>
                       {/* {console.log(feed.tweetsById[tweet])} */}
                       {feed.tweetsById[tweet].status && (
