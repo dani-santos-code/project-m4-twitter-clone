@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
@@ -150,6 +150,13 @@ export default function Tweet() {
 
   const inputEl = useRef(null);
 
+  const isDisabled = useMemo(() => {
+    if (inputText.length <= 280) {
+      return false;
+    }
+    return true;
+  }, [inputText]);
+
   const handleSubmit = e => {
     e.preventDefault();
     if (inputText.length <= 280) {
@@ -213,7 +220,7 @@ export default function Tweet() {
             </CharacterCount>
           )}
 
-          <MeowCTA type="submit" value={"MEOW"}></MeowCTA>
+          <MeowCTA type="submit" value={"MEOW"} disabled={isDisabled}></MeowCTA>
         </TweetBoxWrapper>
       )}
       <TweetFeedWrapper>
