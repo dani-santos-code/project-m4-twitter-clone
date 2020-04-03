@@ -54,25 +54,35 @@ export default function Sidebar() {
     <NavBar>
       <Logo></Logo>
       <MenuItem>
-        <StyledLink to="/" activeClassName="selected" exact>
+        <StyledLink tabIndex={1} to="/" activeClassName="selected" exact>
           <StyledIcon icon={home} />
           <span>Home</span>
         </StyledLink>
       </MenuItem>
       <MenuItem>
-        <StyledLink to="/notifications" activeClassName="selected" exact>
+        <StyledLink
+          tabIndex={2}
+          to="/notifications"
+          activeClassName="selected"
+          exact
+        >
           <StyledIcon icon={bell} />
           Notifications
         </StyledLink>
       </MenuItem>
       <MenuItem>
-        <StyledLink to="/bookmarks" activeClassName="selected" exact>
+        <StyledLink
+          tabIndex={3}
+          to="/bookmarks"
+          activeClassName="selected"
+          exact
+        >
           <StyledIcon icon={bookmark} />
           Bookmarks
         </StyledLink>
       </MenuItem>
       <MenuItem>
-        <StyledLink to="/abc" activeClassName="selected" exact>
+        <StyledLink tabIndex={4} to="/abc" activeClassName="selected" exact>
           <StyledIcon icon={user} />
           Profile
         </StyledLink>
