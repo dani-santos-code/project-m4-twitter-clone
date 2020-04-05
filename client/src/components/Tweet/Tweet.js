@@ -91,14 +91,18 @@ export default function Tweet({ author, tweet }) {
             <p>{tweet.retweetFrom.displayName}</p>
           </RetweetWrapper>
         )}
-        <StyledLink tabIndex={-1} to={`/tweet/${tweet.id}`}>
-          <Avatar src={`${author.avatarSrc}`} />
+        <StyledLink
+          tabIndex={-1}
+          to={`/tweet/${tweet.id}`}
+          aria-label="View Tweet"
+        >
+          <Avatar src={`${author.avatarSrc}`} alt="avatar" />
           <div tabIndex={0}>
             <TweetUserInfo>
               {/* {console.log(feed)} */}
               {author && (
                 <TweetListItem>
-                  <TweetAuthor>{author.displayName}</TweetAuthor>
+                  <TweetAuthor tabIndex={0}>{author.displayName}</TweetAuthor>
                   <TweetHandle>@{author.handle}</TweetHandle>
                   <BulletDivider></BulletDivider>
                   <TimeStamp>
@@ -121,7 +125,7 @@ export default function Tweet({ author, tweet }) {
           </div>
         </StyledLink>
         <ActionsWrapper>
-          <TweetActions />
+          <TweetActions tweet={tweet} />
         </ActionsWrapper>
       </div>
     </TweetWrapper>

@@ -93,7 +93,7 @@ export default function TweetDetail() {
             )}
           </TweetUserContent>
           <ActionsWrapper>
-            <TweetActions />
+            <TweetActions tweet={tweetData.tweet} />
           </ActionsWrapper>
         </>
       ) : (

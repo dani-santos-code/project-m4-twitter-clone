@@ -63,10 +63,6 @@ export default function Profile() {
     }
   }, [userStatus]);
 
-  // console.log(currentUser);
-  console.log(userFeed);
-  console.log(userFeed.tweetIds);
-  // console.log(Object.keys(userFeed.tweetsById));
   return (
     <div>
       {userStatus === "ok" ? (
@@ -79,7 +75,6 @@ export default function Profile() {
           {userFeedStatus === "ok" ? (
             <FeedWrapper>
               {userFeed.tweetIds.map((tweetId) => (
-                // console.log(tweet)
                 <Tweet
                   key={tweetId}
                   tweet={userFeed.tweetsById[tweetId]}
