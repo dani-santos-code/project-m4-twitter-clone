@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
-import TweetActions from "../components/Tweet/TweetActions";
+import TweetActions from "./TweetActions";
 
 const Avatar = styled.img`
   border-radius: 50%;
@@ -62,8 +62,8 @@ export default function TweetDetail() {
 
   useEffect(() => {
     fetch(`/api/tweet/${tweetId}`)
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         setTweetData(res);
         setStatus("ok");
       });

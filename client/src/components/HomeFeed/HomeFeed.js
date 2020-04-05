@@ -4,7 +4,6 @@ import Tweet from "../Tweet";
 
 const HomeWrapper = styled.div`
   padding-left: 30px;
-  border-left: 1.5px solid white;
   border-left: 1.5px solid #f0f0f5;
 `;
 export default function HomeFeed() {
