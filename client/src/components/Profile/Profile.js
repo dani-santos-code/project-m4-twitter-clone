@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "../CurrentUserContext";
 import Tweet from "../Tweet/Tweet";
+import Spinner from "../App/Spinner";
 
 const Header = styled.div`
   width: 100%;
@@ -12,11 +13,9 @@ const Header = styled.div`
 const Banner = styled.img`
   width: 100%;
   z-index: 2;
-  /* position: absolute; */
 `;
 
 const UserAvatar = styled.img`
-  /* position: absolute; */
   top: 200px;
   left: 20px;
   z-index: 10;
@@ -36,17 +35,17 @@ const FollowingBtn = styled.button`
   cursor: pointer;
   outline: none;
   border: none;
-  position: absolute;
-  top: 250px;
-  right: 20px;
 `;
 const FeedWrapper = styled.div``;
 
-const TweetImg = styled.img`
-  width: 200px;
-  height: 200px;
+const AvatarButton = styled.div`
+  margin-top: -50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px;
 `;
-const Feed = styled.div``;
+
 export default function Profile() {
   const { currentUser, userStatus } = React.useContext(CurrentUserContext);
   const [userFeed, setUserFeed] = React.useState("");
@@ -69,8 +68,10 @@ export default function Profile() {
         <>
           <Header>
             <Banner src={`${currentUser.bannerSrc}`} />
-            <UserAvatar src={`${currentUser.avatarSrc}`} />
-            <FollowingBtn>Follow</FollowingBtn>
+            <AvatarButton>
+              <UserAvatar src={`${currentUser.avatarSrc}`} />
+              <FollowingBtn>Follow</FollowingBtn>
+            </AvatarButton>
           </Header>
           {userFeedStatus === "ok" ? (
             <FeedWrapper>
@@ -87,7 +88,7 @@ export default function Profile() {
           )}
         </>
       ) : (
-        <h1>{userStatus}</h1>
+        <Spinner />
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import Sidebar from "../Sidebar";
@@ -7,19 +7,27 @@ import Notification from "../Notifications";
 import Bookmark from "../Bookmarks";
 import TweetDetail from "../Tweet/TweetDetail";
 import Profile from "../Profile";
+import ErrorPage from "./ErrorPage";
 import GlobalStyles from "../GlobalStyles";
 
+import { CurrentUserContext } from "../CurrentUserContext";
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
+  margin-right: 100px;
+  border-right: 2px solid #f0f0f5;
 `;
 
 const App = () => {
+  const { error } = useContext(CurrentUserContext);
+
   return (
     <Wrapper>
       <GlobalStyles />
-      <Router>
-        <Sidebar></Sidebar>
+      <Sidebar></Sidebar>
+      {error ? (
+        <ErrorPage />
+      ) : (
         <Switch>
           <Route exact path="/">
             <HomeFeed />
@@ -37,7 +45,7 @@ const App = () => {
             <Profile />
           </Route>
         </Switch>
-      </Router>
+      )}
     </Wrapper>
   );
 };

@@ -15,7 +15,7 @@ const TweetBoxHeader = styled.div`
   display: flex;
 `;
 const TweetBoxInput = styled.textarea`
-  width: 300px;
+  width: 100%;
   height: 50px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -47,6 +47,9 @@ const MeowCTA = styled.input`
   outline: none;
   border: none;
   align-self: flex-end;
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
 
 export default function TweetBox() {

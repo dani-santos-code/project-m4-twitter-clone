@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CurrentUserContext } from "../CurrentUserContext";
 import NewTweet from "./NewTweet";
 import Tweet from "./Tweet";
+import Spinner from "../App/Spinner";
 
 const TweetFeedWrapper = styled.div`
   margin-top: 20px;
@@ -26,7 +27,7 @@ export default function TweetFeed() {
             );
           })
         ) : (
-          <h1>Loading</h1>
+          <Spinner />
         )}
       </TweetFeedWrapper>
     </>

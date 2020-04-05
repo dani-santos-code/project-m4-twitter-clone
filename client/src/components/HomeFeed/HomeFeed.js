@@ -6,7 +6,7 @@ const HomeWrapper = styled.div``;
 export default function HomeFeed() {
   return (
     <HomeWrapper>
-      <h1>Home</h1>
+      {/* <h1>Home</h1> */}
       <TweetFeed />
     </HomeWrapper>
   );

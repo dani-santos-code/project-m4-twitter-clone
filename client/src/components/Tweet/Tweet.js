@@ -8,9 +8,6 @@ import { Link } from "react-router-dom";
 import TweetActions from "./TweetActions";
 
 const TweetWrapper = styled.div`
-  border-bottom: 1.5px solid #e5e5e5;
-  /* display: grid;
-  grid-template-columns: 60px 2fr; */
   padding: 10px;
 `;
 const TweetUserInfo = styled.ul`

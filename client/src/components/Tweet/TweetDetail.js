@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { format } from "date-fns";
 import TweetActions from "./TweetActions";
-
+import Spinner from "../App/Spinner";
 const Avatar = styled.img`
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  padding-right: 5px;
+  margin-right: 5px;
 `;
 
 const TweetAuthor = styled.p`
@@ -97,7 +97,7 @@ export default function TweetDetail() {
           </ActionsWrapper>
         </>
       ) : (
-        <h1>Loading</h1>
+        <Spinner />
       )}
     </div>
   );
