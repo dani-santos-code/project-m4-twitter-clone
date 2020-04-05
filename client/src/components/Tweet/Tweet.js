@@ -1,18 +1,11 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
 import { Icon } from "react-icons-kit";
 import { repeat } from "react-icons-kit/feather/repeat";
-import { CurrentUserContext } from "../CurrentUserContext";
-import TweetActions from "./TweetActions";
-import TweetBox from "./TweetBox";
+import { Link } from "react-router-dom";
 
-const TweetFeedWrapper = styled.div`
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: 60px 2fr;
-`;
+import TweetActions from "./TweetActions";
 
 const TweetUserInfo = styled.ul`
   list-style: none;
@@ -88,85 +81,48 @@ const StyledLink = styled(Link)`
   color: inherit;
 `;
 
-export default function Tweet() {
-  const {
-    currentUser,
-    userStatus,
-    feed,
-    feedStatus,
-    setFeedStatus,
-  } = React.useContext(CurrentUserContext);
-
+export default function Tweet({ author, tweet }) {
   return (
-    <>
-      <TweetBox />
-      <TweetFeedWrapper>
-        {userStatus === "ok" && feedStatus === "ok" ? (
-          feed.tweetIds.map((tweet, i) => {
-            return (
-              <React.Fragment key={`${i}-${tweet}`}>
-                <div>
-                  <Avatar src={`${feed.tweetsById[tweet].author.avatarSrc}`} />
-                </div>
-                <div>
-                  <StyledLink
-                    tabIndex={-1}
-                    to={`/tweet/${feed.tweetsById[tweet].id}`}
-                  >
-                    <TweetUserInfo>
-                      {feed.tweetsById[tweet].retweetFrom && (
-                        <RetweetWrapper>
-                          <StyledIcon icon={repeat} />
-                          <p>
-                            {feed.tweetsById[tweet].retweetFrom.displayName}
-                          </p>
-                        </RetweetWrapper>
-                      )}
-                      {/* {console.log(feed)} */}
-                      {feed.tweetsById[tweet].author && (
-                        <TweetListItem key={`${i}-${tweet}`}>
-                          <TweetAuthor>
-                            {feed.tweetsById[tweet].author.displayName}
-                          </TweetAuthor>
-                          <TweetHandle>
-                            @{feed.tweetsById[tweet].author.handle}
-                          </TweetHandle>
-                          <BulletDivider></BulletDivider>
-                          <TimeStamp>
-                            {format(
-                              new Date(feed.tweetsById[tweet].timestamp),
-                              "MMM do"
-                            )}
-                          </TimeStamp>
-                        </TweetListItem>
-                      )}
-                    </TweetUserInfo>
-                    <TweetUserContent>
-                      {/* {console.log(feed.tweetsById[tweet])} */}
-                      {feed.tweetsById[tweet].status && (
-                        <Status> {feed.tweetsById[tweet].status}</Status>
-                      )}
-                      {feed.tweetsById[tweet].media.length ? (
-                        <TweetMediaImage
-                          src={`${feed.tweetsById[tweet].media[0].url}`}
-                        ></TweetMediaImage>
-                      ) : (
-                        ""
-                      )}
-                      <ActionsWrapper>
-                        <TweetActions />
-                      </ActionsWrapper>
-                    </TweetUserContent>
-                  </StyledLink>
-                  <Divider />
-                </div>
-              </React.Fragment>
-            );
-          })
-        ) : (
-          <h1>Loading</h1>
-        )}
-      </TweetFeedWrapper>
-    </>
+    <React.Fragment>
+      <div>
+        <Avatar src={`${author.avatarSrc}`} />
+      </div>
+      <div>
+        <StyledLink tabIndex={-1} to={`/tweet/${tweet.id}`}>
+          <TweetUserInfo>
+            {tweet.retweetFrom && (
+              <RetweetWrapper>
+                <StyledIcon icon={repeat} />
+                <p>{tweet.retweetFrom.displayName}</p>
+              </RetweetWrapper>
+            )}
+            {/* {console.log(feed)} */}
+            {author && (
+              <TweetListItem>
+                <TweetAuthor>{author.displayName}</TweetAuthor>
+                <TweetHandle>@{author.handle}</TweetHandle>
+                <BulletDivider></BulletDivider>
+                <TimeStamp>
+                  {format(new Date(tweet.timestamp), "MMM do")}
+                </TimeStamp>
+              </TweetListItem>
+            )}
+          </TweetUserInfo>
+          <TweetUserContent>
+            {/* {console.log(tweet)} */}
+            {tweet.status && <Status> {tweet.status}</Status>}
+            {tweet.media.length ? (
+              <TweetMediaImage src={`${tweet.media[0].url}`}></TweetMediaImage>
+            ) : (
+              ""
+            )}
+            <ActionsWrapper>
+              <TweetActions />
+            </ActionsWrapper>
+          </TweetUserContent>
+        </StyledLink>
+        <Divider />
+      </div>
+    </React.Fragment>
   );
 }

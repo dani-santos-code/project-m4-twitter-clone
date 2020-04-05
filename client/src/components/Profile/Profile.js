@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "../CurrentUserContext";
-
+import Tweet from "../Tweet";
 const Header = styled.div`
   width: 100%;
   min-height: 100%;
@@ -54,8 +54,8 @@ export default function Profile() {
   useEffect(() => {
     if (userStatus === "ok") {
       fetch(`api/${currentUser.handle}/feed`)
-        .then(res => res.json())
-        .then(tweets => {
+        .then((res) => res.json())
+        .then((tweets) => {
           setUserFeed(tweets);
           setUserFeedStatus("ok");
         });
@@ -77,7 +77,7 @@ export default function Profile() {
           </Header>
           {userFeedStatus === "ok" ? (
             <FeedWrapper>
-              {userFeed.tweetIds.map(tweet => (
+              {userFeed.tweetIds.map((tweet) => (
                 <>
                   {userFeed.tweetsById[tweet].media.length ? (
                     <TweetImg
