@@ -12,8 +12,8 @@ import Logo from "../App/Logo";
 
 const NavBar = styled.nav`
   line-height: 30px;
-  margin: 30px 30%;
   font-family: "Varela Round", sans-serif;
+  border-right: 1.5px solid #f0f0f5;
   display: flex;
   flex-direction: column;
   .logo {

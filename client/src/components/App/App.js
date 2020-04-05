@@ -11,8 +11,7 @@ import GlobalStyles from "../GlobalStyles";
 
 const Wrapper = styled.div`
   display: grid;
-  grid-gap: 40px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 4fr;
 `;
 
 const App = () => {

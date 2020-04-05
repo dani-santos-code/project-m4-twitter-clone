@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "../CurrentUserContext";
-import Tweet from "../Tweet";
+import Tweet from "../Tweet/Tweet";
+
 const Header = styled.div`
   width: 100%;
   min-height: 100%;
   position: relative;
-  border-left: 1.5px solid #f0f0f5;
   margin-left: 0;
 `;
 const Banner = styled.img`
   width: 100%;
   z-index: 2;
-  position: absolute;
+  /* position: absolute; */
 `;
 
 const UserAvatar = styled.img`
-  position: absolute;
+  /* position: absolute; */
   top: 200px;
   left: 20px;
   z-index: 10;
@@ -51,6 +51,7 @@ export default function Profile() {
   const { currentUser, userStatus } = React.useContext(CurrentUserContext);
   const [userFeed, setUserFeed] = React.useState("");
   const [userFeedStatus, setUserFeedStatus] = React.useState("Loading");
+
   useEffect(() => {
     if (userStatus === "ok") {
       fetch(`api/${currentUser.handle}/feed`)
@@ -77,17 +78,13 @@ export default function Profile() {
           </Header>
           {userFeedStatus === "ok" ? (
             <FeedWrapper>
-              {userFeed.tweetIds.map((tweet) => (
-                <>
-                  {userFeed.tweetsById[tweet].media.length ? (
-                    <TweetImg
-                      src={`${userFeed.tweetsById[tweet].media[0].url}`}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <p>{userFeed.tweetsById[tweet].status}</p>
-                </>
+              {userFeed.tweetIds.map((tweetId) => (
+                // console.log(tweet)
+                <Tweet
+                  key={tweetId}
+                  tweet={userFeed.tweetsById[tweetId]}
+                  author={userFeed.tweetsById[tweetId].author}
+                />
               ))}
             </FeedWrapper>
           ) : (

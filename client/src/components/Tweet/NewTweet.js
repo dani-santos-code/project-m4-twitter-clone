@@ -6,7 +6,6 @@ import { CurrentUserContext } from "../CurrentUserContext";
 const TweetBoxWrapper = styled.form`
   margin-top: 40px;
   border-bottom: 10px solid #00000017;
-  width: 500px;
   display: flex;
   flex-direction: column;
   padding: 10px;
