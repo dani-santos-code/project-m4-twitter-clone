@@ -47,7 +47,7 @@ const createTweet = (status, { isRetweet }) => {
  */
 router.get('/api/tweet/:tweetId', (req, res) => {
   let tweet = data.tweets[req.params.tweetId];
-
+  console.log(tweet);
   tweet = resolveRetweet(tweet);
   tweet = denormalizeTweet(tweet);
 
